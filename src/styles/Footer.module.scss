@@ -1,0 +1,17 @@
+.footer {
+  padding: 3.125em;
+  background-color: #fff;
+
+  &__logo {
+    margin-bottom: 1.875em;
+  }
+
+  &__nav {
+    max-width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    row-gap: 1.625em;
+    column-gap: 15em;
+  }
+}
