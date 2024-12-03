@@ -7,7 +7,7 @@
 .form {
   @extend %flex-column;
   height: 100%;
-
+  padding: 4em 0;
   &__container {
     @extend %flex-column;
     padding: 20px 32px;

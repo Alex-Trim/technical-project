@@ -1,9 +1,27 @@
 import React from "react";
 import Link from "next/link";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import style from "@/styles/Header.module.scss";
 import img_logo from "../../../public/Logo.png";
-export const Header = () => {
+
+import { useRouter } from "next/router";
+import { useAuth } from "../AuthProvider/AuthProvider";
+
+export const Header: React.FC = () => {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const [isAuth, setIsAuth] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsAuth(isAuthenticated);
+  }, [isAuthenticated]);
+
+  const handleLogout = () => {
+    Cookies.remove("accessToken");
+    router.reload();
+  };
+
   return (
     <header className={style.header}>
       <div className={`container  ${style.header__container}`}>
@@ -32,7 +50,7 @@ export const Header = () => {
         <div className={style.header__right}>
           <Link
             className={`${style.header__link} ${style.header__link__img}`}
-            href="/cart"
+            href={isAuth ? "/cart" : "/login"}
           >
             <svg
               width="18"
@@ -48,24 +66,46 @@ export const Header = () => {
             </svg>
             <span>Корзина</span>
           </Link>
-          <Link
-            className={`${style.header__link} ${style.header__link__img} `}
-            href="/login"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+
+          {isAuth ? (
+            <button
+              className={`${style.header__link} ${style.header__link__img} `}
+              onClick={handleLogout}
             >
-              <path
-                d="M6.99992 0.333252C7.88397 0.333252 8.73182 0.684441 9.35694 1.30956C9.98206 1.93468 10.3333 2.78253 10.3333 3.66659C10.3333 4.55064 9.98206 5.39849 9.35694 6.02361C8.73182 6.64873 7.88397 6.99992 6.99992 6.99992C6.11586 6.99992 5.26802 6.64873 4.6429 6.02361C4.01777 5.39849 3.66659 4.55064 3.66659 3.66659C3.66659 2.78253 4.01777 1.93468 4.6429 1.30956C5.26802 0.684441 6.11586 0.333252 6.99992 0.333252ZM6.99992 8.66658C10.6833 8.66658 13.6666 10.1583 13.6666 11.9999V13.6666H0.333252V11.9999C0.333252 10.1583 3.31659 8.66658 6.99992 8.66658Z"
-                fill="currentColor"
-              />
-            </svg>
-            <span>Войти</span>
-          </Link>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.99992 0.333252C7.88397 0.333252 8.73182 0.684441 9.35694 1.30956C9.98206 1.93468 10.3333 2.78253 10.3333 3.66659C10.3333 4.55064 9.98206 5.39849 9.35694 6.02361C8.73182 6.64873 7.88397 6.99992 6.99992 6.99992C6.11586 6.99992 5.26802 6.64873 4.6429 6.02361C4.01777 5.39849 3.66659 4.55064 3.66659 3.66659C3.66659 2.78253 4.01777 1.93468 4.6429 1.30956C5.26802 0.684441 6.11586 0.333252 6.99992 0.333252ZM6.99992 8.66658C10.6833 8.66658 13.6666 10.1583 13.6666 11.9999V13.6666H0.333252V11.9999C0.333252 10.1583 3.31659 8.66658 6.99992 8.66658Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span>Выйти</span>
+            </button>
+          ) : (
+            <Link
+              className={`${style.header__link} ${style.header__link__img} `}
+              href="/login"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.99992 0.333252C7.88397 0.333252 8.73182 0.684441 9.35694 1.30956C9.98206 1.93468 10.3333 2.78253 10.3333 3.66659C10.3333 4.55064 9.98206 5.39849 9.35694 6.02361C8.73182 6.64873 7.88397 6.99992 6.99992 6.99992C6.11586 6.99992 5.26802 6.64873 4.6429 6.02361C4.01777 5.39849 3.66659 4.55064 3.66659 3.66659C3.66659 2.78253 4.01777 1.93468 4.6429 1.30956C5.26802 0.684441 6.11586 0.333252 6.99992 0.333252ZM6.99992 8.66658C10.6833 8.66658 13.6666 10.1583 13.6666 11.9999V13.6666H0.333252V11.9999C0.333252 10.1583 3.31659 8.66658 6.99992 8.66658Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span>Войти</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -16,8 +16,24 @@ export const GET_ALL_PRODUCTS = gql`
         Category {
           title
         }
+        ProductDocument {
+          Document {
+            name
+          }
+        }
       }
       totalCount
+    }
+    mainOffer: product(id: 2) {
+      id
+      title
+      price
+      caliber
+      ProductDocument {
+        Document {
+          name
+        }
+      }
     }
   }
 `;

@@ -16,6 +16,12 @@
     width: 100%;
   }
   &__slide {
+    width: 100%;
+    max-height: 300px;
+  }
+  &__img {
+    margin-inline: auto;
+    object-fit: cover;
   }
   &__info {
     background-color: #fff;
