@@ -1,19 +1,18 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ONE_PRODUCTS } from "@/query/product";
 import { ADD_PRODUCT_TO_BASKET } from "@/query/addBasket";
+import { useAuth } from "@/components/AuthProvider/AuthProvider";
 
 import style from "@/styles/Goods.module.scss";
-// Интерфейс для документа
+
 interface Document {
   name: string;
 }
 
-// Интерфейс для продукта
 interface ProductDocument {
   Document: Document;
 }
@@ -32,11 +31,17 @@ interface Product {
   };
   ProductDocument: ProductDocument[];
 }
+
 interface GetProductResponse {
   product: Product;
 }
+
 export const Goods = () => {
+  const { isAuth } = useAuth();
+
   const router = useRouter();
+  const { id } = router.query;
+
   const [
     addProductToBasket,
     {
@@ -45,16 +50,7 @@ export const Goods = () => {
       error: errorProductToBasket,
     },
   ] = useMutation(ADD_PRODUCT_TO_BASKET);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-  React.useEffect(() => {
-    const accessToken = Cookies.get("accessToken");
-    if (accessToken) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const { id } = router.query;
   const { data, loading, error } = useQuery<GetProductResponse>(
     GET_ONE_PRODUCTS,
     {
@@ -105,7 +101,7 @@ export const Goods = () => {
                 <p className={style.goods__cost}>{data?.product.price} ₽</p>
               </strong>
             </div>
-            {isLoggedIn ? (
+            {isAuth ? (
               <button
                 onClick={handleAddToBasket}
                 className={style.goods__button}

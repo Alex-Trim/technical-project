@@ -12,9 +12,9 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
     const accessToken = Cookies.get("accessToken");
 
     if (!accessToken) {
-      router.push("/login"); // Редирект на страницу входа
+      router.push("/login");
     }
-  }, [router]);
+  }, []);
 
   return <>{children}</>;
 };

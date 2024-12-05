@@ -94,6 +94,14 @@
       background-color: transparent;
       padding: 24px;
     }
+    &[disabled] {
+      cursor: context-menu;
+      color: #00000079;
+      &:hover {
+        color: #00000079;
+        background-color: #f9f9f9;
+      }
+    }
   }
   &__price {
     margin-right: 20px;

@@ -21,8 +21,11 @@
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
-
-  &:hover {
+  &:disabled {
+    opacity: 0.8;
+    cursor: context-menu;
+  }
+  &:hover:not(:disabled) {
     background-color: #d62430;
   }
 

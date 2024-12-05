@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { useForm, Resolver } from "react-hook-form";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useForm, Resolver } from "react-hook-form";
 import axios from "axios";
 
 import style from "@/styles/Form.module.scss";
@@ -16,6 +16,7 @@ type FormValues = {
 
 const resolver: Resolver<FormValues> = async (values) => {
   const errors = {} as any;
+
   if (!values.email) {
     errors.email = {
       type: "required",
@@ -52,6 +53,7 @@ const resolver: Resolver<FormValues> = async (values) => {
 
 export const Registration = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,

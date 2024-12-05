@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
+import { useAuth } from "@/components/AuthProvider/AuthProvider";
 import { useForm, Resolver } from "react-hook-form";
+import Cookies from "js-cookie";
 import axios from "axios";
 
 import style from "@/styles/Form.module.scss";
@@ -36,6 +37,7 @@ const resolver: Resolver<FormValues> = async (values) => {
 };
 
 export const Login = () => {
+  const { Login } = useAuth();
   const router = useRouter();
   const {
     register,
@@ -55,7 +57,7 @@ export const Login = () => {
       }
 
       const result = response.data.data;
-
+      Login();
       Cookies.set("accessToken", result.access_token, { expires: 1 });
 
       Cookies.set("refreshToken", result.refresh_token, { expires: 7 });
@@ -63,7 +65,6 @@ export const Login = () => {
       router.push("/");
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
-        // Устанавливаем сообщение об ошибке в состояние
         console.log(err.response.data.message || "Ошибка авторизации");
       } else {
         console.log("Неизвестная ошибка");

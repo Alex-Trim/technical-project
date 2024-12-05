@@ -1,20 +1,24 @@
 import React from "react";
+
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+
 import debounce from "lodash.debounce";
-import examplImg from "../../public/goods/saiga-5.png";
-import style from "@/styles/Hero.module.scss";
+import { useForm, Controller } from "react-hook-form";
+
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
+
 import { GET_ALL_PRODUCTS } from "@/query/products";
 import { GET_ALL_CATEGORY } from "@/query/category";
-import Link from "next/link";
-// Интерфейс для документа
+
+import style from "@/styles/Hero.module.scss";
+
 interface Document {
   name: string;
 }
 
-// Интерфейс для продукта
 interface ProductDocument {
   Document: Document;
 }
@@ -29,6 +33,7 @@ interface Product {
   };
   ProductDocument: ProductDocument[];
 }
+
 interface GetProductsResponse {
   products: {
     products: Product[];
@@ -42,6 +47,7 @@ interface GetProductsResponse {
     ProductDocument: ProductDocument[];
   };
 }
+
 interface Categories {
   id: number;
   title: string;
@@ -53,27 +59,24 @@ interface GetCategoriesResponse {
     totalCount: number;
   };
 }
+
 export default function Home() {
   const countProducts = 6;
 
-  const router = useRouter(); // Используйте useRouter
-  const { page = 1 } = router.query; // Получите номер страницы из URL
-  const currentPage = Number(page); // Преобразуйте его в число
-  const skipProducts = (currentPage - 1) * countProducts; // Рассчитайте skipProducts
+  const router = useRouter();
 
-  const [categoryId, setCategoryId] = React.useState(1);
-  const [searchValue, setSearchValue] = React.useState("");
+  const { page = 1 } = router.query;
+  const currentPage = Number(page);
+  const skipProducts = (currentPage - 1) * countProducts;
+
+  const [categoryId, setСategoryId] = React.useState<number | null>(null);
   const [search, setSearch] = React.useState("");
 
   const variables: any = {
     skip: skipProducts,
     take: countProducts,
-    // categoryId: categoryId,
+    categoryId: categoryId !== null ? categoryId : undefined,
     search: search,
-  };
-
-  const handleCategoryChange = (id: number) => {
-    setCategoryId(id); // Обновляем состояние categoryId
   };
 
   const {
@@ -91,25 +94,34 @@ export default function Home() {
     error: categoryError,
   } = useQuery<GetCategoriesResponse>(GET_ALL_CATEGORY);
 
+  const { register } = useForm();
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      categoryId: null,
+    },
+  });
+
   const totalPages = Math.ceil(
     (productsData?.products?.totalCount ?? 0) / countProducts
   );
 
   const handlePageChange = (page: number) => {
-    router.push(`/?page=${page}`); // Переход на выбранную страницу
+    router.push(`/?page=${page}`);
   };
 
-  const serchDebounce = React.useCallback(
-    debounce((text: string) => {
-      setSearch(text);
-    }, 1000),
-    []
-  );
-
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-    serchDebounce(event.target.value);
+  const handleCategoryChange = (id: number | null) => {
+    setСategoryId(id);
   };
+
+  const debouncedSearch = debounce((value) => {
+    setSearch(value);
+  }, 1000);
+
+  const onChangeInput = (event: any) => {
+    debouncedSearch(event.target.value);
+  };
+
   return (
     <>
       <Head>
@@ -140,7 +152,7 @@ export default function Home() {
             </div>
             <div className={style.mainOffer__info}>
               <h1 className={style.mainOffer__heading}>
-                {productsData?.mainOffer.title}{" "}
+                {productsData?.mainOffer.title}
               </h1>
               <p className={style.mainOffer__description}>
                 {productsData?.mainOffer.caliber}
@@ -159,16 +171,26 @@ export default function Home() {
                   categoryData?.categories.categories.map(({ title, id }) => {
                     return (
                       <li key={id}>
-                        <button
-                          onClick={() => handleCategoryChange(id)}
-                          className={
-                            id == categoryId
-                              ? `${style.catalog__button} ${style.catalog__button__red}`
-                              : style.catalog__button
-                          }
-                        >
-                          {title}
-                        </button>
+                        <Controller
+                          name="categoryId"
+                          control={control}
+                          render={({ field: { onChange, value } }) => (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                onChange(value === id ? null : id);
+                                handleCategoryChange(value === id ? null : id);
+                              }}
+                              className={
+                                id === value
+                                  ? `${style.catalog__button} ${style.catalog__button__red}`
+                                  : style.catalog__button
+                              }
+                            >
+                              {title}
+                            </button>
+                          )}
+                        />
                       </li>
                     );
                   })}
@@ -189,12 +211,13 @@ export default function Home() {
                     fill="#161A1E"
                   />
                 </svg>
+
                 <input
                   className={style.serchForm__input}
                   type="text"
+                  {...register("search")}
+                  onChange={onChangeInput}
                   placeholder="Поиск товаров"
-                  value={searchValue} // Устанавливаем значение из состояния
-                  onChange={onChangeInput} // Обновляем состояние поиска
                 />
               </label>
             </div>

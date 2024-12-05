@@ -33,4 +33,9 @@
     @extend %flex-row;
     column-gap: 0.5em;
   }
+  &__btn {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
 }

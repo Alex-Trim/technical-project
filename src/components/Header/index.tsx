@@ -10,15 +10,12 @@ import { useAuth } from "../AuthProvider/AuthProvider";
 
 export const Header: React.FC = () => {
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
-  const [isAuth, setIsAuth] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsAuth(isAuthenticated);
-  }, [isAuthenticated]);
+  const { Logout } = useAuth();
+  const { isAuth } = useAuth();
 
   const handleLogout = () => {
     Cookies.remove("accessToken");
+    Logout();
     router.reload();
   };
 
@@ -69,7 +66,7 @@ export const Header: React.FC = () => {
 
           {isAuth ? (
             <button
-              className={`${style.header__link} ${style.header__link__img} `}
+              className={`${style.header__link} ${style.header__link__img} ${style.header__btn}  `}
               onClick={handleLogout}
             >
               <svg

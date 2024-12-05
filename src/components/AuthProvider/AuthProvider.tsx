@@ -6,42 +6,68 @@ import React, {
   useState,
 } from "react";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 interface AuthProviderProps {
-  children: ReactNode; // Указываем, что children могут быть любого типа, который поддерживает React
+  children: ReactNode;
 }
 
 interface AuthContextType {
-  isAuthenticated: boolean;
-  // Добавьте другие свойства и методы, если необходимо
+  isAuth: boolean;
+  Login: () => void;
+  Logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!Cookies.get("accessToken")
-  );
+  const [isToken, setIsToken] = useState(Cookies.get("accessToken"));
+  const [isAuth, setIsAuth] = useState(false);
 
-  useEffect(() => {
-    const handleCookieChange = () => {
-      const accessToken = Cookies.get("accessToken");
-      setIsAuthenticated(!!accessToken);
-    };
-
-    // Слушаем изменения куков
-    window.addEventListener("storage", handleCookieChange);
-
-    // Проверяем куки при монтировании компонента
-    handleCookieChange();
-
-    return () => {
-      window.removeEventListener("storage", handleCookieChange);
-    };
+  React.useLayoutEffect(() => {
+    console.log("refresh");
+    if (!!Cookies.get("accessToken")) {
+      try {
+        axios
+          .post(
+            "https://trainess-api.dev-vt2b.ru/auth/refresh",
+            {},
+            {
+              headers: {
+                "refresh-token": Cookies.get("refreshToken") || "",
+              },
+            }
+          )
+          .then(function (response) {
+            const result = response.data;
+            Cookies.set("accessToken", result.access_token, { expires: 1 });
+            Cookies.set("refreshToken", result.refresh_token, { expires: 7 });
+            setIsToken(result.access_token);
+          });
+      } catch (err) {
+        if (axios.isAxiosError(err) && err.response) {
+          console.log(err.response.data.message || "Ошибка авторизации");
+        } else {
+          console.log("Неизвестная ошибка");
+        }
+      }
+    }
   }, []);
 
+  useEffect(() => {
+    setIsAuth(!!isToken);
+  }, [isToken]);
+
+  const Login = () => {
+    setIsAuth(true);
+  };
+
+  const Logout = () => {
+    setIsAuth(false);
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated }}>
+    <AuthContext.Provider value={{ isAuth, Login, Logout }}>
       {children}
     </AuthContext.Provider>
   );
