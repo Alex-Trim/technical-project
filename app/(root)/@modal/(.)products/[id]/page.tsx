@@ -1,8 +1,13 @@
 import { Modal } from "@/shared/components/modals";
 import { ProductPage } from "@/shared/components/product-page";
+interface ProductsPageProps {
+  params: {
+    id: string;
+  };
+}
 
-export default async function Products({ params }: { params: { id: string } }) {
-  const { id } = await params;
+export default function Products({ params }: ProductsPageProps) {
+  const { id } = params;
 
   return (
     <Modal>

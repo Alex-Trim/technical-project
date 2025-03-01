@@ -8,7 +8,7 @@ import { GET_BASKET_FOR_USER } from "@/shared/query/basket";
 import { GetBasketForUserData } from "@/@types/product";
 import toast from "react-hot-toast";
 
-export const Cart = () => {
+export default function Cart() {
   const { loading, error, data, refetch } =
     useQuery<GetBasketForUserData>(GET_BASKET_FOR_USER);
   const totalSum = data?.basketForUser.productsInBasket.reduce(
@@ -82,5 +82,4 @@ export const Cart = () => {
       </section>
     </ProtectedRoute>
   );
-};
-export default Cart;
+}
