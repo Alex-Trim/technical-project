@@ -1,0 +1,37 @@
+@use "../../styles/templates/flex";
+.content {
+  color: inherit;
+
+  &__right {
+    display: inherit;
+    flex-direction: inherit;
+    row-gap: inherit;
+    column-gap: inherit;
+    align-items: inherit;
+  }
+
+  &__link {
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+
+  &__link:hover {
+    color: #db2626;
+  }
+
+  &__link__img {
+    @extend %flex-row;
+    column-gap: 0.5em;
+  }
+
+  &__btn {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+  }
+}

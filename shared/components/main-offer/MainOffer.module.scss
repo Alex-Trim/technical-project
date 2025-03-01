@@ -1,0 +1,52 @@
+@use "../../styles/templates/flex";
+@use "../../styles/templates/heading";
+
+.mainOffer {
+  @extend %flex-column;
+  padding: 44px 0;
+  width: 100%;
+
+  &__price {
+    padding: 18px 30px 18px 52px;
+    align-self: flex-end;
+    font-size: clamp(0.8rem, 3vw, 1.5rem);
+    background-image: url("/icon/LineR.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+    strong {
+      font-size: clamp(1rem, 3vw, 3rem);
+    }
+  }
+
+  &__picture {
+    @extend %flex-row;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__img {
+    margin-inline: auto;
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &__info {
+    @extend %flex-row;
+    width: 100%;
+    align-items: flex-end;
+    column-gap: 28px;
+    padding: 21px 10px;
+    background-image: url("/icon/LineL.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    font-size: 20px;
+  }
+
+  &__heading {
+    @extend %heading--main;
+    font-weight: 900;
+  }
+}

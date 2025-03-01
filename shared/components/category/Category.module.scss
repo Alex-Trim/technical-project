@@ -1,0 +1,28 @@
+@use "../../styles/templates/flex";
+@use "../../styles/templates/button";
+
+.category {
+  @extend %flex-row;
+
+  justify-content: flex-start;
+  column-gap: 10px;
+  overflow-x: scroll;
+  @media (max-width: 1270px) {
+    padding: 1em;
+    border: 1px solid #dddddd;
+    border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    -ms-border-radius: 1em;
+    -o-border-radius: 1em;
+  }
+  &__button {
+    @extend %button;
+    @extend %button--min;
+    @extend %button--gray;
+    text-wrap: nowrap;
+    &__red {
+      @extend %button--red;
+    }
+  }
+}

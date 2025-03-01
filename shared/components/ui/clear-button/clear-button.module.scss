@@ -1,0 +1,17 @@
+@use "../../../styles/templates/button";
+.clearButton {
+  @extend %button;
+  position: absolute;
+  padding: 1em;
+  inset: 0;
+  margin: auto 0.3em auto auto;
+  opacity: 0.2;
+  &__icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,32 @@
+@use "../../styles/templates/flex";
+
+.searchForm {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #f9f9f9;
+
+  font-weight: 300;
+  font-size: 20px;
+  border-radius: 20px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+
+  &__field {
+    @extend %flex-row;
+    padding-left: 27px;
+    justify-content: flex-start;
+    column-gap: 13px;
+  }
+
+  &__input {
+    padding: 12px 24px 12px 0;
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+  }
+}

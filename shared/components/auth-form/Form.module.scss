@@ -1,0 +1,70 @@
+@use "../../styles/templates/flex";
+@use "../../styles/templates/button";
+@use "../../styles/templates/heading";
+@use "../../styles/templates/link";
+
+.form {
+  @extend %flex-column;
+  height: 100%;
+  padding: 4em 0;
+  &__container {
+    @extend %flex-column;
+    width: 100%;
+    padding: 20px 32px;
+    max-width: 34em;
+    background-color: #fff;
+    row-gap: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+
+    form {
+      @extend %flex-column;
+      width: 100%;
+      row-gap: 20px;
+    }
+  }
+
+  &__heading {
+    @extend %heading;
+    font-weight: 500;
+  }
+
+  &__bts {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.5em;
+    }
+  }
+
+  &__button {
+    @extend %button;
+    width: 100%;
+  }
+
+  &__button_transparent {
+    @extend %button--transparent;
+  }
+
+  &__button_loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 20px;
+  }
+
+  &__link {
+    @extend %link-classic;
+  }
+}

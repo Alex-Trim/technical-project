@@ -1,0 +1,45 @@
+.notification {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf4fa3;
+  border: 1px solid #388e3c;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  animation: slideDownFadeOut 3s ease forwards;
+  -webkit-animation: slideDownFadeOut 3s ease forwards;
+
+  &.success,
+  &.error {
+    display: block;
+  }
+  &.error {
+    background-color: #f44336a3;
+    border: 1px solid #f44336;
+  }
+}
+@keyframes slideDownFadeOut {
+  0% {
+    top: -100px; /* Начальное положение */
+    opacity: 0;
+  }
+  10% {
+    top: 20px; /* Элемент появляется */
+    opacity: 1;
+  }
+  80% {
+    top: 20px; /* Задержка в видимом состоянии */
+    opacity: 1;
+  }
+  100% {
+    top: -100px; /* Уход элемента вверх */
+    opacity: 0;
+  }
+}

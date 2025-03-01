@@ -1,0 +1,29 @@
+.footer {
+  padding: 3.125em;
+  background-color: #fff;
+
+  &__logo {
+    margin-bottom: 1.875em;
+  }
+
+  &__nav {
+    max-width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    row-gap: 1.625em;
+    column-gap: clamp(5em, 15vw, 15em);
+    @media (max-width: 768px) {
+      grid-template-columns: auto;
+      grid-template-rows: auto auto auto auto;
+    }
+  }
+
+  &__link {
+    transition: all 0.3s ease-in-out;
+  }
+
+  &__link:hover {
+    color: #db2626;
+  }
+}

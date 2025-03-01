@@ -1,0 +1,59 @@
+@use "../../styles/templates/flex";
+@use "../../styles/templates/button";
+.card {
+  @extend %flex-column;
+  align-items: center;
+  padding: 16px;
+  max-width: 604px;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  column-gap: 6px;
+
+  &__bottom {
+    width: 100%;
+    justify-self: end;
+  }
+  &__tag {
+    @extend %button;
+    @extend %button--min;
+    @extend %button--transparent;
+
+    border-color: transparent;
+    background-color: #fff;
+    margin-bottom: 0.2em;
+  }
+  &__info {
+    @extend %flex-row;
+    justify-content: flex-start;
+  }
+  &__heading {
+    max-width: clamp(6em, 5vw, 8em);
+    margin-right: 13px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__description {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: #b3b3b3;
+  }
+  &__cost {
+    margin-left: auto;
+    font-size: clamp(1rem, 2vw, 2rem);
+  }
+  &__picture {
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__img {
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+}

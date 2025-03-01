@@ -1,0 +1,16 @@
+.productList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 20px;
+  @media (max-width: 1256px) {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
+  }
+  @media (max-width: 668px) {
+    grid-template-columns: auto;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+}

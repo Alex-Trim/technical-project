@@ -1,0 +1,18 @@
+@use "../../styles/templates/button";
+@use "../../styles/templates/flex";
+
+.pagination {
+  @extend %flex-row;
+  padding-top: 20px;
+  justify-content: center;
+  column-gap: 10px;
+  &__btn {
+    @extend %button;
+
+    @extend %button--gray;
+  }
+  &__active {
+    background-color: #d62430;
+    color: #fff;
+  }
+}

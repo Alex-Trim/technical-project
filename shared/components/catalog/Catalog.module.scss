@@ -1,0 +1,23 @@
+@use "../../styles/templates/heading";
+@use "../../styles/templates/flex";
+.catalog {
+  padding: 20px 1em;
+  margin-bottom: 81px;
+  background-color: #fff;
+
+  &__heading {
+    @extend %heading--secondery;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  &__category {
+    margin-bottom: 20px;
+  }
+}
+
+.category {
+  @extend %flex-row;
+  justify-content: flex-start;
+  column-gap: 10px;
+}
