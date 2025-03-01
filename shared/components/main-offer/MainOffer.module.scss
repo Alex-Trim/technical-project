@@ -29,7 +29,10 @@
     margin-inline: auto;
     object-fit: cover;
     max-width: 100%;
-    height: auto;
+
+    @media (max-width: 768px) {
+      height: auto;
+    }
   }
 
   &__info {

@@ -7,6 +7,7 @@ import { GET_ALL_CATEGORY } from "@/shared/query/category";
 import { useQuery } from "@apollo/client";
 import { GetCategoriesResponse } from "@/@types/categories";
 import { SkeletonCategoryList } from "@/shared/skeleton/skeleton-category-list";
+import { CustomScrollContainer } from "../scroll-container";
 
 interface CategoryProps {
   setCategoryId: (id: number | null) => void;
@@ -28,32 +29,34 @@ export const Category: React.FC<CategoryProps> = ({ setCategoryId }) => {
   }
 
   return (
-    <ul className={`list-reset ${style.category}`}>
-      {categories.map(({ title, id }) => (
-        <li key={id}>
-          <Controller
-            name="categoryId"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <button
-                type="button"
-                onClick={() => {
-                  const newValue = value === id ? null : id;
-                  onChange(newValue);
-                  setCategoryId(newValue);
-                }}
-                className={
-                  id === value
-                    ? `${style.category__button} ${style.category__button__red}`
-                    : style.category__button
-                }
-              >
-                {title}
-              </button>
-            )}
-          />
-        </li>
-      ))}
-    </ul>
+    <CustomScrollContainer maxHeight="200px">
+      <ul className={`list-reset ${style.category}`}>
+        {categories.map(({ title, id }) => (
+          <li key={id}>
+            <Controller
+              name="categoryId"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newValue = value === id ? null : id;
+                    onChange(newValue);
+                    setCategoryId(newValue);
+                  }}
+                  className={
+                    id === value
+                      ? `${style.category__button} ${style.category__button__red}`
+                      : style.category__button
+                  }
+                >
+                  {title}
+                </button>
+              )}
+            />
+          </li>
+        ))}
+      </ul>
+    </CustomScrollContainer>
   );
 };
