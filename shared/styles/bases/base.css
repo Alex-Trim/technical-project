@@ -56,6 +56,9 @@ ul {
 
 .container {
   max-width: 116em;
-
   margin-inline: auto;
+}
+
+.signin {
+  overflow: hidden;
 }

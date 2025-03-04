@@ -6,7 +6,7 @@ export const SkeletonProductsCard = () => {
     <Skeleton
       variant="rectangular"
       width={"100%"}
-      height={245}
+      height={313}
       style={{ borderRadius: "20px" }}
     />
   );

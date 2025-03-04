@@ -13,6 +13,22 @@
   align-items: center;
   z-index: 100;
   &__content {
-    width: 90vw;
+    position: relative;
+    max-width: 90vw;
+    width: fit-content;
+  }
+  &__CloseButton {
+    margin: 0;
+    position: absolute;
+    top: 1em;
+    right: -1px;
+    margin-left: auto;
+    opacity: 1;
+
+    z-index: 1000;
+    // Скрываем на десктопе
+    @media (min-width: 769px) {
+      display: none;
+    }
   }
 }

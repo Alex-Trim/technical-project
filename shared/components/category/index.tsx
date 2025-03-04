@@ -14,8 +14,7 @@ interface CategoryProps {
 }
 
 export const Category: React.FC<CategoryProps> = ({ setCategoryId }) => {
-  const { data, loading, error } =
-    useQuery<GetCategoriesResponse>(GET_ALL_CATEGORY);
+  const { data, loading } = useQuery<GetCategoriesResponse>(GET_ALL_CATEGORY);
 
   const { control } = useForm({ defaultValues: { categoryId: null } });
 

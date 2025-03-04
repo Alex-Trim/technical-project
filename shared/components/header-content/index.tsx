@@ -21,36 +21,21 @@ export const HeaderContent: React.FC<HeaderContentProps> = ({
 
   return (
     <div className={`${className} ${style.content} `}>
-      <nav className={style.nav}>
-        <ul className={style.nav__list}>
-          <li>
-            <Link
-              className={style.content__link}
-              href={ROUTES.HOME}
-              onClick={onLinkClick}
-            >
-              Главная
-            </Link>
-          </li>
-        </ul>
-      </nav>
-      <div className={style.content__right}>
-        <Link
-          className={`${style.content__link} ${style.content__link__img}`}
-          href={isAuthenticated ? ROUTES.CART : ROUTES.LOGIN}
-          onClick={onLinkClick}
-        >
-          <СartIcon />
-          <span>Корзина</span>
-        </Link>
-        <ProfileButton
-          className={`${style.content__link} ${style.content__link__img} ${style.content__btn}`}
-          onClickSignOut={() => {
-            onLinkClick?.();
-          }}
-          onLogout={() => logout()}
-        />
-      </div>
+      <Link
+        className={`${style.content__link} ${style.content__link__img}`}
+        href={isAuthenticated ? ROUTES.CART : ROUTES.LOGIN}
+        onClick={onLinkClick}
+      >
+        <СartIcon />
+        <span>Корзина</span>
+      </Link>
+      <ProfileButton
+        className={`${style.content__link} ${style.content__link__img} ${style.content__btn}`}
+        onClickSignOut={() => {
+          onLinkClick?.();
+        }}
+        onLogout={() => logout()}
+      />
     </div>
   );
 };

@@ -7,9 +7,9 @@ interface Props {
   onClick?: VoidFunction;
 }
 
-export const ClearButton: React.FC<Props> = ({ onClick }) => {
+export const ClearButton: React.FC<Props> = ({ onClick, className }) => {
   return (
-    <button onClick={onClick} className={style.clearButton}>
+    <button onClick={onClick} className={`${style.clearButton} ${className}`}>
       <X className={style.clearButton__icon} />
     </button>
   );

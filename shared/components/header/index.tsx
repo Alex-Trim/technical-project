@@ -13,7 +13,7 @@ import BurgerMenu from "../burger-menu";
 import { HeaderContent } from "../header-content";
 
 export const Header: React.FC = () => {
-  const [imageSrc, setImageSrc] = React.useState(img_logo);
+  const [imageSrc, setImageSrc] = React.useState(img_logo_min);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   React.useEffect(() => {

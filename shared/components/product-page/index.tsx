@@ -16,13 +16,10 @@ interface ProductPageProps {
 
 export const ProductPage: React.FC<ProductPageProps> = ({ productId }) => {
   const { isAuthenticated } = useAuth();
-  const { data, loading, error } = useQuery<GetProductResponse>(
-    GET_ONE_PRODUCTS,
-    {
-      variables: { id: parseInt(productId as string, 10) },
-      fetchPolicy: "cache-first",
-    }
-  );
+  const { data, loading } = useQuery<GetProductResponse>(GET_ONE_PRODUCTS, {
+    variables: { id: parseInt(productId as string, 10) },
+    fetchPolicy: "cache-first",
+  });
 
   const [addToBasket] = useMutation(ADD_PRODUCT_TO_BASKET);
 

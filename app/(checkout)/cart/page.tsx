@@ -9,7 +9,7 @@ import { GetBasketForUserData } from "@/@types/product";
 import toast from "react-hot-toast";
 
 export default function Cart() {
-  const { loading, error, data, refetch } =
+  const { loading, data, refetch } =
     useQuery<GetBasketForUserData>(GET_BASKET_FOR_USER);
   const totalSum = data?.basketForUser.productsInBasket.reduce(
     (accumulator, currentValue) =>
